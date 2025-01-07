@@ -1,0 +1,74 @@
+---
+title: 'Assignment 1: Limb Measurement Analysis'
+author: "Noah Gandl Black"
+date: "2025-01-07"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+[GitHub Repository](https://github.com/YourGitHubRepo)
+
+#Data Generation and Volume Estimation
+```{r}
+source("dataGenerato.R")
+source("volumeEstimato.R")
+```
+
+#Load and sort Data
+```{r}
+library(dplyr)
+measurements <- read.csv("measurements.csv")
+
+# Sort by species, observer, and volume
+sorted_data <- measurements %>%
+  arrange(Species, Observer, Volume)
+head(sorted_data)
+
+```
+#Average Volume by Species
+```{r}
+avg_volume <- measurements %>%
+  group_by(Species) %>%
+  summarize(Average_Volume = mean(Volume, na.rm = TRUE))
+avg_volume
+
+```
+#Observations by Species and Observer
+```{r}
+obs_count <- measurements %>%
+  group_by(Species, Observer) %>%
+  summarize(Observations = n())
+obs_count
+```
+#Box Plot of Volume by Species
+```{r}
+library(ggplot2)
+ggplot(measurements, aes(x = Species, y = Volume)) +
+  geom_boxplot() +
+  labs(title = "Volume Distribution by Species",
+       x = "Species", y = "Volume") + theme_minimal()
+```
+#Histograms of Volume by Species
+```{r}
+library(tidyr)
+
+long_data <- measurements %>%
+  pivot_longer(cols = Volume, names_to = "Metric", values_to = "Value")
+ggplot(long_data, aes(x = Value)) +
+  geom_histogram(bins = 10, fill = "skyblue", color = "black") +
+  facet_wrap(~Species) +
+  labs(title = "Volume Distribution by Species",
+       x = "Volume", y = "Frequency") + theme_minimal()
+
+```
+
+
+
+
+
+
+
+
+
+

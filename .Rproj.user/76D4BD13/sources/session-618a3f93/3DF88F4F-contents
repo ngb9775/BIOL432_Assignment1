@@ -1,18 +1,12 @@
+# Load required library
+library(dplyr)
 
-#Generate data
-set.seed(123)
-species <- sample(c("Species1", "Species2", "Species3", "Species4", "Species5"), 100, replace = TRUE)
-limb_width <- rnorm(100, mean = 2, sd = 0.5) 
-limb_width <- abs(limb_width)
-limb_length <- rnorm(100, mean = 10, sd = 2)
-limb_length <- abs(limb_length)
-observers <- sample(c("Observer1", "Observer2", "Observer3"), 100, replace = TRUE)
+# Read the measurements file
+data <- read.csv("measurements.csv")
 
-#Create data frame
-data <- data.frame(Species = species, Limb_width = limb_width, Limb_length = limb_length, Observer = observers)
+# Calculate volume using a formula (example: V = π * (radius^2) * height)
+data <- data %>%
+  mutate(Volume = pi * (Limb_width / 2)^2 * Limb_length)
 
-#Export to CSV
+# Overwrite the file with the new column
 write.csv(data, "measurements.csv", row.names = FALSE)
-
-
-

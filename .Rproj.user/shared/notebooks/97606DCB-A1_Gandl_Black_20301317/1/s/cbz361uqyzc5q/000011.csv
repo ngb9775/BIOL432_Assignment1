@@ -1,0 +1,4 @@
+"0","avg_volume <- measurements %>%"
+"0","  group_by(Species) %>%"
+"0","  summarize(Average_Volume = mean(Volume, na.rm = TRUE))"
+"0","avg_volume"

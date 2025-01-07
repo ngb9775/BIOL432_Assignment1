@@ -1,0 +1,7 @@
+"0","library(dplyr)"
+"0","measurements <- read.csv(""measurements.csv"")"
+"0",""
+"0","# Sort by species, observer, and volume"
+"0","sorted_data <- measurements %>%"
+"0","  arrange(Species, Observer, Volume)"
+"0","head(sorted_data)"
